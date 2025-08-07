@@ -1,42 +1,51 @@
-# Santander Dev Week 2023
-Java RESTful API criada para a Santander Dev Week
+# Santander Dev Week 2023 – API de Conta Bancária 💳
 
-## Diagrama de classes
+Projeto desenvolvido como parte do bootcamp *Santander Dev Week 2023, promovido pela **DIO (Digital Innovation One)*.
+O objetivo é construir uma API RESTful em Java utilizando *Spring Boot, com integração ao banco de dados **PostgreSQL* hospedado na *Railway*.
 
-'''mermaid
-classDiagram
-  class User {
-    -String name
-    -Account account
-    -Feature[] features
-    -Card card
-    -News[] news
-  }
+---
 
-  class Account {
-    -String number
-    -String agency
-    -Number balance
-    -Number limit
-  }
+## 🚀 Tecnologias utilizadas
 
-  class Feature {
-    -String icon
-    -String description
-  }
+- Java 17
+- Spring Boot 3
+- Spring Data JPA
+- PostgreSQL (na nuvem, via Railway)
+- Gradle
+- pgAdmin 4
+- Git & GitHub
 
-  class Card {
-    -String number
-    -Number limit
-  }
+---
 
-  class News {
-    -String icon 
-    -String description 
-  }
+## 🧠 Funcionalidades implementadas
 
-  User --> Account
-  User --> Feature
-  User --> Card
-  User --> News
-'''
+- Cadastro de contas bancárias
+- Consulta de contas por ID ou listagem geral
+- Atualização de dados de conta
+- Exclusão de contas
+- Persistência de dados no banco PostgreSQL remoto
+- Acesso e visualização dos dados via pgAdmin
+
+---
+
+## 📦 Modelo da entidade Account
+
+```java
+@Entity(name = "tb_account")
+public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
+    private String number;
+
+    private String agency;
+
+    @Column(precision = 13, scale = 2)
+    private BigDecimal balance;
+
+    @Column(name = "additional_limit", precision = 13, scale = 2)
+    private BigDecimal additionalLimit;
+}
